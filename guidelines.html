@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta title="GuideLines">
+    <style>
+      #content {
+        border: 1px solid #ddd;
+        height: 400px;
+        margin: auto;
+        position: relative;
+        width: 800px;
+      }
+      
+      #canvas {
+        height: 400px;
+        position: absolute;
+        width: 800px;
+      }
+      
+      #retangle {
+        background: #eee;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        box-shadow: 0 0 2px #ddd;
+        cursor: pointer;
+        height: 130px;
+        left: 50px;
+        position: absolute;
+        top: 130px;
+        width: 175px;
+      }
+      
+      #retangle-1 {
+        background: #333;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        box-shadow: 0 0 2px #111;
+        cursor: pointer;
+        height: 130px;
+        left: 150px;
+        position: absolute;
+        top: 230px;
+        width: 175px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <canvas id="canvas" height="400" width="800"></canvas>
+      <div id="retangle"></div>
+      <div id="retangle-1"></div>
+    </div>
+    <script src="./guideline.js"></script>
+    <script src="./movesystem.js"></script>
+    <script src="./guidelines.js"></script>
+  </body>
+</html>
