@@ -30,14 +30,28 @@ for (var j = 0; j <= 800; j += MM) {
 }
 
 var content = document.getElementById('content');
+var retangles = document.getElementsByClassName('retangle');
+
+var alignLines = new GuideLines();
 
 content.addEventListener('mousedown', function(event) {
   if(/retangle/.test(event.target.id)) {
     moveSystem.setElement(event.target);
   }
+  
+  alignLines.clearHlines();
+  alignLines.clearVlines();
+  
+  Array.prototype.forEach.call(retangles, function(r) {
+    if(r !== event.target) {
+      alignLines.addHlines(r.offsetTop, r.offsetTop + r.offsetHeight);
+      alignLines.addVlines(r.offsetLeft, r.offsetLeft + r.offsetWidth);
+    }
+  });
 });
 
 var moveSystem = new MoveSystem();
 
 moveSystem.setABD(5);
 moveSystem.setGuideLines(guideLines);
+moveSystem.setAlignLines(alignLines);

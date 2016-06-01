@@ -15,6 +15,7 @@
   var element;
   var eleBoundary;
   var guideLines;
+  var alignLines;
   
   function MoveSystem(params) {
     
@@ -52,6 +53,10 @@
       guideLines = gLines;
     };
     
+    fun.prototype.setAlignLines = function(aLines) {
+      alignLines = aLines;
+    };
+    
     fun.prototype.unbind = function(ele) {
       document.removeEventListener('mousedown', md);
       document.removeEventListener('mousemove', mm);
@@ -68,13 +73,12 @@
     };
     
     if(event.target === element) {
-      var eleStyle = getComputedStyle(element);
       isMoving = true;
       eleInfo = {
-        left: parseFloat(eleStyle.left),
-        top: parseFloat(eleStyle.top),
-        height: parseFloat(eleStyle.height),
-        width: parseFloat(eleStyle.width)
+        left: element.offsetLeft,
+        top: element.offsetTop,
+        height: element.offsetHeight,
+        width: element.offsetWidth,
       };
     }
   }
@@ -118,14 +122,21 @@
     var iabv = true; // 在此次移动过程中是否在垂直参考线进行了吸附
     var iabh = true;
     
-    var lr, tr;
+    var lr, tr, isAlign = false;
     
-    if(guideLines && (guideLines.vlines instanceof Array) && xdd !== 0) {
-      
+    if(xdd !== 0) {
       t1 = eleInfo.left + xdd;
       t2 = eleInfo.left + eleInfo.width + xdd;
-    
-      lr = findAbsorbLine(guideLines.vlines, t1, t2);
+      
+      isAlign = false;
+      if(guideLines && (guideLines.vlines instanceof Array)) {
+        lr = findAbsorbLine(guideLines.vlines, t1, t2);
+      }
+      
+      if(alignLines && (alignLines.vlines instanceof Array)) {
+        isAlign = false;
+        lr = findAbsorbLine(alignLines.vlines, t1, t2);
+      }
       
       if(lr === null) {
         eleInfo.left = t1;
@@ -145,11 +156,17 @@
       }
     }
     
-    if(guideLines && (guideLines.hlines instanceof Array) && ydd !== 0) {
+    if(ydd !== 0) {
       t1 = eleInfo.top + ydd;
       t2 = eleInfo.top + eleInfo.height + ydd;
       
-      tr = findAbsorbLine(guideLines.hlines, t1, t2);
+      if(guideLines && (guideLines.hlines instanceof Array)) {
+        tr = findAbsorbLine(guideLines.hlines, t1, t2);
+      }
+      
+      if(alignLines && (alignLines.hlines instanceof Array)) {
+        tr = findAbsorbLine(alignLines.hlines, t1, t2);
+      }
       
       if(tr === null) {
         eleInfo.top = t1;
