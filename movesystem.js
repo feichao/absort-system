@@ -100,8 +100,8 @@
       
       checkBoundary(eleInfo);
       
-      element.style.left = eleInfo.left;
-      element.style.top = eleInfo.top;
+      element.style.left = eleInfo.left + 'px';
+      element.style.top = eleInfo.top + 'px';
     }
   }
   
@@ -122,20 +122,21 @@
     var iabv = true; // 在此次移动过程中是否在垂直参考线进行了吸附
     var iabh = true;
     
-    var lr, tr, isAlign = false;
+    var lr = null, tr = null, isAlign = false;
     
     if(xdd !== 0) {
       t1 = eleInfo.left + xdd;
       t2 = eleInfo.left + eleInfo.width + xdd;
       
       isAlign = false;
-      if(guideLines && (guideLines.vlines instanceof Array)) {
-        lr = findAbsorbLine(guideLines.vlines, t1, t2);
-      }
       
       if(alignLines && (alignLines.vlines instanceof Array)) {
         isAlign = false;
         lr = findAbsorbLine(alignLines.vlines, t1, t2);
+      }
+      
+      if(guideLines && (guideLines.vlines instanceof Array) && !lr) {
+        lr = findAbsorbLine(guideLines.vlines, t1, t2);
       }
       
       if(lr === null) {
@@ -160,12 +161,12 @@
       t1 = eleInfo.top + ydd;
       t2 = eleInfo.top + eleInfo.height + ydd;
       
-      if(guideLines && (guideLines.hlines instanceof Array)) {
-        tr = findAbsorbLine(guideLines.hlines, t1, t2);
-      }
-      
       if(alignLines && (alignLines.hlines instanceof Array)) {
         tr = findAbsorbLine(alignLines.hlines, t1, t2);
+      }
+      
+      if(guideLines && (guideLines.hlines instanceof Array) && !tr) {
+        tr = findAbsorbLine(guideLines.hlines, t1, t2);
       }
       
       if(tr === null) {
