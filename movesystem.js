@@ -13,6 +13,7 @@
   var isMoving;
   var ABD;
   var element;
+  var eleBoundary;
   var guideLines;
   
   function MoveSystem(params) {
@@ -39,6 +40,12 @@
     
     fun.prototype.setElement = function(ele) {
       element = ele;
+      eleBoundary = {
+        left: 0,
+        top: 0,
+        height: ele.offsetParent.offsetHeight,
+        width: ele.offsetParent.offsetWidth
+      };
     };
     
     fun.prototype.setGuideLines = function(gLines) {
@@ -86,6 +93,8 @@
       if(!abret.iabh) {
         startPoint.y = event.clientY;
       }
+      
+      checkBoundary(eleInfo);
       
       element.style.left = eleInfo.left;
       element.style.top = eleInfo.top;
@@ -186,6 +195,24 @@
     }
     
     return null;
+  }
+  
+  function checkBoundary(eleInfo) {
+    if(eleInfo.left < eleBoundary.left) {
+      eleInfo.left = eleBoundary.left;
+    }
+    
+    if(eleInfo.top < eleBoundary.top) {
+      eleInfo.top = eleBoundary.top;
+    }
+    
+    if(eleInfo.left + eleInfo.width > eleBoundary.left + eleBoundary.width) {
+      eleInfo.left = eleBoundary.left + eleBoundary.width - eleInfo.width;
+    }
+    
+    if(eleInfo.top + eleInfo.height > eleBoundary.top + eleBoundary.height) {
+      eleInfo.top = eleBoundary.top + eleBoundary.height - eleInfo.height;
+    }
   }
   
   global.MoveSystem = global.MoveSystem || MoveSystem;

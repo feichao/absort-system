@@ -29,16 +29,15 @@ for (var j = 0; j <= 800; j += MM) {
   guideLines.addVlines(j);
 }
 
-var retangle = document.getElementById('retangle');
-var retangle1 = document.getElementById('retangle-1');
+var content = document.getElementById('content');
+
+content.addEventListener('mousedown', function(event) {
+  if(/retangle/.test(event.target.id)) {
+    moveSystem.setElement(event.target);
+  }
+});
 
 var moveSystem = new MoveSystem();
 
-moveSystem.setABD(10);
-moveSystem.setElement(retangle);
+moveSystem.setABD(5);
 moveSystem.setGuideLines(guideLines);
-
-setTimeout(function() {
-  moveSystem.setABD(5);
-  moveSystem.setElement(retangle1);
-}, 10000);

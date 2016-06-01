@@ -5,6 +5,7 @@
     <style>
       #content {
         border: 1px solid #ddd;
+        box-sizing: border-box;
         height: 400px;
         margin: auto;
         position: relative;
@@ -20,27 +21,37 @@
       #retangle {
         background: #eee;
         border: 1px solid #ccc;
-        box-sizing: border-box;
         box-shadow: 0 0 2px #ddd;
-        cursor: pointer;
         height: 130px;
         left: 50px;
-        position: absolute;
-        top: 130px;
+        top: 10px;
         width: 175px;
       }
       
       #retangle-1 {
         background: #333;
         border: 1px solid #000;
-        box-sizing: border-box;
         box-shadow: 0 0 2px #111;
-        cursor: pointer;
         height: 130px;
-        left: 150px;
-        position: absolute;
+        left: 250px;
         top: 230px;
         width: 175px;
+      }
+      
+      #retangle-2 {
+        background: #666;
+        border: 1px solid #333;
+        box-shadow: 0 0 2px #444;
+        height: 130px;
+        left: 550px;
+        top: 260px;
+        width: 175px;
+      }
+      
+      .retangle {
+        box-sizing: border-box;
+        cursor: pointer;
+        position: absolute;
       }
       
     </style>
@@ -48,8 +59,9 @@
   <body>
     <div id="content">
       <canvas id="canvas" height="400" width="800"></canvas>
-      <div id="retangle"></div>
-      <div id="retangle-1"></div>
+      <div id="retangle" class="retangle"></div>
+      <div id="retangle-1" class="retangle"></div>
+      <div id="retangle-2" class="retangle"></div>
     </div>
     <script src="./guideline.js"></script>
     <script src="./movesystem.js"></script>
